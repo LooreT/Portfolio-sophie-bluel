@@ -23,6 +23,7 @@ fetch('http://localhost:5678/api/works')
             .then(function (resultCat) {
                 console.log(resultCat)
                 addWorkModal(resultWork);
+                let modaleCat = document.getElementById("cat");
                 let filterList = document.getElementById("filtre");
                 let buttonFilter = document.createElement("button");
                 buttonFilter.setAttribute("class", "buttonFilterFull");
@@ -40,6 +41,7 @@ fetch('http://localhost:5678/api/works')
                 filterList.appendChild(buttonFilter);
 
                 for (let x = 0; x < resultCat.length; x++) {
+                    //boutons 
                     let buttonFilter = document.createElement("button");
                     buttonFilter.setAttribute("class", "buttonFilter");
                     buttonFilter.innerHTML = resultCat[x].name;
@@ -60,11 +62,13 @@ fetch('http://localhost:5678/api/works')
                         document.querySelectorAll(".gallery figure").forEach((elem) => elem.remove());
                         // appel de la fonction qui affiche uniquement les elements de la liste filtré
                         showWork(workFiltered);
-
                     });
+                    //fin boutons
 
+                    //modale
+                    addCatOptionModale(modaleCat, resultCat[x]);
+                    //fin modale
                 }
-
             });
     });
 window.onload = function () {
@@ -78,9 +82,18 @@ window.onload = function () {
 
     let isConnected = localStorage.getItem("user") != null;
     let buttonModif = document.getElementById("editProject");
+    let buttonLogin = document.getElementById("login");
+    let buttonLogout = document.getElementById("logout");
+    let bgEdit = document.getElementById("bgEdit");
 
     if (isConnected) {
+        //a cacher
+        buttonLogin.setAttribute("class", "no-display");
+
+        // a montrer
         buttonModif.setAttribute("class", "visible");
+        buttonLogout.setAttribute("class", "visible");
+        bgEdit.setAttribute("class", "visible bg-edit");
     }
 
     buttonModif.addEventListener("click", () => {
@@ -105,7 +118,40 @@ window.onload = function () {
         arrowLeft.setAttribute("class", "no-display");
         let content2 = document.getElementById("content2");
         content2.setAttribute("class", "no-display");
+        refreshImgUpload()
     })
+
+    buttonLogin.addEventListener("click", () => login())
+    buttonLogout.addEventListener("click", () => logout())
+
+    document.getElementById('imgUpload').addEventListener('change', (e) =>  {
+        console.info(e.target.files[0])
+
+        //affichage image
+        let Toto = document.getElementById("imgUploaded");
+        const reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            Toto.src = reader.result;
+          }, false);  
+
+        reader.readAsDataURL(e.target.files[0]);
+//fin affichage image
+//cacher les element
+        let iconInfoUpload = document.getElementById("iconInfoUpload")
+        iconInfoUpload.setAttribute("class", "no-display");
+        let imgUpload= document.getElementById("imgUpload")
+        imgUpload.setAttribute("class", "no-display");
+        let textInfoUpload = document.getElementById("textInfoUpload")
+        textInfoUpload.setAttribute("class", "no-display");
+        //fin cacher les element
+        //check modal button disabled
+        checkModalAddButton();
+        //fin check modal button disabled
+      });
+
+      document.getElementById('cat').addEventListener('change', (e) => checkModalAddButton());
+      document.getElementById('titleWorkToAdd').addEventListener('change', (e) => checkModalAddButton());
 }
 
 
@@ -151,6 +197,17 @@ function addWorkModal(listToShow) {
     }
 }
 
+function addCatOptionModale(modaleCat, resultCat) {
+    let newOption = document.createElement("option");
+    // option value
+    newOption.setAttribute("value", resultCat.id);
+
+    // option innerHtml
+    newOption.innerHTML = resultCat.name;
+
+    modaleCat.appendChild(newOption);
+}
+
 
 function closeModal() {
     let elementModal = document.getElementById("backgroundModal");
@@ -161,6 +218,47 @@ function closeModal() {
     content2.setAttribute("class", "no-display");
     let arrowLeft = document.getElementById("arrowLeft");
     arrowLeft.setAttribute("class", "no-display");
-
+    refreshImgUpload()
 }
 
+function refreshImgUpload() {
+    let iconInfoUpload = document.getElementById("iconInfoUpload")
+    iconInfoUpload.setAttribute("class", "fa-sharp fa-regular fa-image icon-img");
+    let imgUpload= document.getElementById("imgUpload");
+    imgUpload.setAttribute("class", "visible");
+    imgUpload.value = '';
+    let textInfoUpload = document.getElementById("textInfoUpload");
+    textInfoUpload.setAttribute("class", "visible");
+    //reinit image
+    let imgUploaded = document.getElementById("imgUploaded");
+    imgUploaded.setAttribute("src", "");
+}
+
+function logout() {
+    localStorage.removeItem("user");
+    window.location.href = "C:/Users/Lore-/Desktop/PRO/OPENCLASSROOMS/PROJET%206/FrontEnd/index.html";
+}
+
+function login() {
+    window.location.href = "C:/Users/Lore-/Desktop/PRO/OPENCLASSROOMS/PROJET%206/FrontEnd/connexion.html";
+}
+
+function checkModalAddButton() {
+    let img = document.getElementById("imgUpload");
+    let cat = document.getElementById("cat");
+    let title = document.getElementById("titleWorkToAdd");
+    let button = document.getElementById("addButton");
+    console.info('TATITUR')
+
+    //& => il va check jusqu'au bout peut importe si c'est okay
+    //&& => il s'arrrete des que c'est pas bon
+    if(img.value != "" && img.value != null && cat.value != "" && cat.value != null && title.value != "" && title.value != null)
+    {
+        button.disabled = false;
+    }
+    else
+    {
+        console.info('DURDURDUR')
+        button.disabled = true;
+    }
+}

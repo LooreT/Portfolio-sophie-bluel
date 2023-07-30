@@ -17,13 +17,19 @@
 </head>
 
 <body>
+	<!-- BARRE NOIR -->
+	<div id="bgEdit" class="no-display">
+		<button class="buttonEdition"><i class="fa-regular fa-pen-to-square"></i>Mode édition</button>
+		<button class="buttonChange">publier les changements</button>
+	</div>
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
 		<nav>
 			<ul>
 				<li>projets</li>
 				<li>contact</li>
-				<li>login</li>
+				<li id="login">login</li>
+				<li class="no-display" id="logout">logout</li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
@@ -33,7 +39,7 @@
 		<div id="backgroundModal" class="no-display">
 			<div id="containerModal" class="container-modal">
 				<i id="arrowLeft" class="fa-solid fa-arrow-left no-display"></i>
-				<i class="fa-solid fa-xmark"></i>
+				<i class="fa-solid fa-xmark container-modal1-i"></i>
 				<div id="content1" class="content-visible">
 					<div class="h3-gallery">
 						<h3>Galerie photo</h3>
@@ -49,23 +55,28 @@
 
 				</div>
 				<div id="content2" class="no-display">
-					
-					<div class="h3-gallery">
-						<h3>Ajout photo</h3>
-						<input type="file">
+
+					<div class="h3-gallery2">
+						<h3 class="container-modal2">Ajout photo</h3>
+						<!-- <label for="img"></label> -->
+						<div class="h3-gallery2-img">
+							<img id="imgUploaded" src="" alt="" class="img-Preview">
+							<i id="iconInfoUpload" class="fa-sharp fa-regular fa-image icon-img"></i>
+							<label for="img"></label>
+							<input type="file" id="imgUpload" name="img" accept="image/png, image/jpeg">
+							<p id="textInfoUpload">jpg,png : 4mo max</p>
+						</div>
 
 						<label for="title">Titre</label>
-						<input type="text" name="title" id="title">
-	
+						<input type="text" name="title" id="titleWorkToAdd" class="width-title-cat title-cat-style">
+
 						<label for="cat">Catégories</label>
-						<select id="cat" name="cat" size="1">
-							<option value="volvo">Volvo</option>
-							<option value="prout">prout</option>
-							<option value="riku">riku</option>
-						  </select>
+						<select id="cat" name="cat" size="1" class="width-title-cat title-cat-style">
+							<option value="vide"></option>
+						</select>
 
 						<hr>
-						<button id="addButton">Ajouter une Photo</button>
+						<button id="addButton" class="button-modal2">Valider</button>
 					</div>
 				</div>
 
