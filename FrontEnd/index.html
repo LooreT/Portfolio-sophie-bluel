@@ -22,6 +22,7 @@
 		<button class="buttonEdition"><i class="fa-regular fa-pen-to-square"></i>Mode édition</button>
 		<button class="buttonChange">publier les changements</button>
 	</div>
+	<div class="body">
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
 		<nav>
@@ -38,49 +39,54 @@
 		<!-- MODALE -->
 		<div id="backgroundModal" class="no-display">
 			<div id="containerModal" class="container-modal">
+<div class="arrow-cross">
 				<i id="arrowLeft" class="fa-solid fa-arrow-left no-display"></i>
 				<i class="fa-solid fa-xmark container-modal1-i"></i>
+			</div>
 				<div id="content1" class="content-visible">
 					<div class="h3-gallery">
 						<h3>Galerie photo</h3>
-						<div id="galleryModal" class="gallery-modal">
-						</div>
+						<p id="addSuccess" class="no-display">Image bien ajoutée !</p>
+					<div id="galleryModal" class="gallery-modal">
 					</div>
-
-					<div class="footer-modal">
-						<hr>
-						<button id="addButton">Ajouter une Photo</button>
-						<a href="#">Supprimer la galerie</a>
-					</div>
-
 				</div>
-				<div id="content2" class="no-display">
 
-					<div class="h3-gallery2">
-						<h3 class="container-modal2">Ajout photo</h3>
-						<!-- <label for="img"></label> -->
-						<div class="h3-gallery2-img">
-							<img id="imgUploaded" src="" alt="" class="img-Preview">
-							<i id="iconInfoUpload" class="fa-sharp fa-regular fa-image icon-img"></i>
-							<label for="img"></label>
-							<input type="file" id="imgUpload" name="img" accept="image/png, image/jpeg">
-							<p id="textInfoUpload">jpg,png : 4mo max</p>
-						</div>
-
-						<label for="title">Titre</label>
-						<input type="text" name="title" id="titleWorkToAdd" class="width-title-cat title-cat-style">
-
-						<label for="cat">Catégories</label>
-						<select id="cat" name="cat" size="1" class="width-title-cat title-cat-style">
-							<option value="vide"></option>
-						</select>
-
-						<hr>
-						<button id="addButton" class="button-modal2">Valider</button>
-					</div>
+				<div class="footer-modal">
+					<hr>
+					<button id="addButton">Ajouter une Photo</button>
+					<a href="#">Supprimer la galerie</a>
 				</div>
 
 			</div>
+			<div id="content2" class="no-display">
+
+				<div class="h3-gallery2">
+					<h3 class="container-modal2">Ajout photo</h3>
+					<!-- <label for="img"></label> -->
+					<div class="h3-gallery2-img">
+						<img id="imgUploaded" src="" alt="" class="img-Preview">
+						<i id="iconInfoUpload" class="fa-sharp fa-regular fa-image icon-img"></i>
+						<label for="img"></label>
+						<input type="file" id="imgUpload" name="img" accept="image/png, image/jpeg" class="no-display">
+						<button id="buttonAddPhoto" class="button-add-file">+ Ajouter photo</button>
+						<p id="textInfoUpload" class="jpg-png">jpg,png : 4mo max</p>
+						<p id="errorFileSize" class="no-display">Votre fichier est trop gros</p>
+					</div>
+
+					<label for="title">Titre</label>
+					<input type="text" name="title" id="titleWorkToAdd" class="width-title-cat title-cat-style">
+
+					<label for="cat">Catégories</label>
+					<select id="cat" name="cat" size="1" class="width-title-cat title-cat-style">
+						<option value=""></option>
+					</select>
+
+					<hr>
+					<button id="addButtonModal2" class="button-modal2" disabled>Valider</button>
+				</div>
+			</div>
+
+		</div>
 		</div>
 
 
@@ -90,6 +96,10 @@
 		<section id="introduction">
 			<figure>
 				<img src="./assets/images/sophie-bluel.png" alt="">
+				<div class="no-display" id="editProfile">
+					<i class="fa-regular fa-pen-to-square"></i>
+					<p>modifier</p>
+				</div>
 			</figure>
 			<article>
 				<h2>Designer d'espace</h2>
@@ -104,7 +114,7 @@
 		</section>
 		<section id="portfolio">
 			<h2>Mes Projets</h2>
-			<div class="no-display" id="editProject">
+			<div class="no-display pos-modif-proj" id="editProject">
 				<i class="fa-regular fa-pen-to-square"></i>
 				<p>modifier</p>
 			</div>
@@ -136,6 +146,7 @@
 			</ul>
 		</nav>
 	</footer>
+</div>
 </body>
 
 </html>

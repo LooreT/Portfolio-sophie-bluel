@@ -27,19 +27,17 @@ window.onload = function () {
       .then(function (resultatPost) {
         console.log(resultatPost)
 
-        if(resultatPost.userId != null) { 
-        localStorage.setItem("user", resultatPost.token);
-        console.info(localStorage.getItem("user"))
-        window.location.href = "C:/Users/Lore-/Desktop/PRO/OPENCLASSROOMS/PROJET%206/FrontEnd/index.html";
+        if (resultatPost.userId != null) {
+          localStorage.setItem("user", resultatPost.token);
+          console.info(localStorage.getItem("user"))
+          window.location.href = "C:/Users/Lore-/Desktop/PRO/OPENCLASSROOMS/PROJET%206/FrontEnd/index.html";
         }
-        else{
+        else {
           let errorMessage = document.getElementById("error");
           errorMessage.setAttribute("class", "errorOn");
         }
 
 
-
-        
       })
 
   })
