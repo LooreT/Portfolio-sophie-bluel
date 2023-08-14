@@ -1,39 +1,38 @@
 
+// TOKEN fonctionne ?
 console.info(localStorage.getItem("user"))
+// Verification tailel du fichier
 let fileTooBig = false;
 
 fetch('http://localhost:5678/api/works')
     .then(function (response) {
         if (response.ok) {
-            console.log("riku");
             return response.json();
         }
-        console.log(response.json());
     })
     .then(function (resultWork) {
         showWork(resultWork);
         fetch('http://localhost:5678/api/categories')
             .then(function (response) {
                 if (response.ok) {
-                    console.log("toto");
                     return response.json();
                 }
             })
             .then(function (resultCat) {
-                console.log(resultCat)
                 addWorkModal(resultWork);
                 let modaleCat = document.getElementById("cat");
                 let filterList = document.getElementById("filtre");
+
+                // CREATION BOUTON TOUS 
                 let buttonFilter = document.createElement("button");
                 buttonFilter.setAttribute("class", "buttonFilterFull");
                 buttonFilter.innerHTML = "Tous";
 
-                // AJOUT POUR TOUS
+                // AJOUT POUR BOUTON TOUS
                 buttonFilter.addEventListener("click", () => {
                     let buttonToReset = document.querySelector("#filtre .buttonFilterFull");
                     buttonToReset.setAttribute("class", "buttonFilter");
                     buttonFilter.setAttribute("class", "buttonFilterFull");
-                    document.querySelectorAll(".gallery figure").forEach((elem) => elem.remove());
                     showWork(resultWork);
                 });
 
@@ -56,7 +55,6 @@ fetch('http://localhost:5678/api/works')
                             // Identique ? booleen true false
                             return work.category.id == resultCat[x].id;
                         });
-                        console.log(workFiltered)
                         // appel de la fonction qui affiche uniquement les elements de la liste filtré
                         showWork(workFiltered);
                     });
@@ -118,11 +116,11 @@ window.onload = function () {
     buttonLogin.addEventListener("click", () => login())
     buttonLogout.addEventListener("click", () => logout())
 
-    document.getElementById("buttonAddPhoto").addEventListener("click", ()=> document.getElementById('imgUpload').click())
+    document.getElementById("buttonAddPhoto").addEventListener("click", () => document.getElementById('imgUpload').click())
 
     document.getElementById('imgUpload').addEventListener('change', (e) => {
         let errorFileSize = document.getElementById("errorFileSize");
-        console.info(e.target.files[0])
+
 
         if (e.target.files[0].size > 4000000) {
             fileTooBig = true;
@@ -224,7 +222,7 @@ function addWorkModal(listToShow) {
             fetch('http://localhost:5678/api/works/' + listToShow[x].id, {
                 method: 'DELETE',
                 headers: {
-                    Authorization : "Bearer " + localStorage.getItem("user")
+                    Authorization: "Bearer " + localStorage.getItem("user")
                 }
             }).then(function (response) {
                 if (response.ok) {
@@ -245,7 +243,7 @@ function addWorkModal(listToShow) {
 
         containerIcons.appendChild(arrowsIcon);
         containerIcons.appendChild(trashIcon);
-        
+
         containerImg.appendChild(containerIcons);
 
         containerImg.appendChild(newImg);
@@ -276,7 +274,7 @@ function closeModal() {
     content2.setAttribute("class", "no-display");
     let arrowLeft = document.getElementById("arrowLeft");
     arrowLeft.setAttribute("class", "no-display");
-    
+
     document.getElementById("addSuccess").setAttribute("class", "no-display");
     refreshFormUpload();
 }
@@ -312,7 +310,7 @@ function checkModalAddButton() {
     let cat = document.getElementById("cat");
     let title = document.getElementById("titleWorkToAdd");
     let button = document.getElementById("addButtonModal2");
-    console.info('TATITUR')
+
 
     //& => il va check jusqu'au bout peut importe si c'est ok
     //&& => il s'arrrete des que c'est pas bon
@@ -320,19 +318,17 @@ function checkModalAddButton() {
         button.disabled = false;
     }
     else {
-        console.info('DURDURDUR')
         button.disabled = true;
     }
 }
 
 function sendNewWork() {
     let img = document.getElementById("imgUpload");
-    console.info(img)
     let cat = document.getElementById("cat");
     let title = document.getElementById("titleWorkToAdd");
 
     var formData = new FormData();
-    
+
     formData.append("image", img.files[0]);
     formData.append("title", title.value);
     formData.append("category", cat.value);
@@ -340,7 +336,7 @@ function sendNewWork() {
     fetch('http://localhost:5678/api/works', {
         method: 'POST',
         headers: {
-            Authorization : "Bearer " + localStorage.getItem("user"),
+            Authorization: "Bearer " + localStorage.getItem("user"),
             'Accept': 'application/json'
         },
         body: formData
@@ -350,24 +346,22 @@ function sendNewWork() {
             parAddSuccess.setAttribute("class", "add-success");
             //RAFRAICHIR LA GALLERIE MODALE + ²
             refreshWorks();
-            
+
             //REVENIR EN ARRIERE
             goLeft();
         }
     })
 }
 
-function refreshWorks(){
+function refreshWorks() {
     fetch('http://localhost:5678/api/works')
-            .then(function (response) {
-                if (response.ok) {
-                    console.log("toto");
-                    return response.json();
-                }
-            })
-            .then(function (resultWork) {
-                console.info("dfjslqjklsnhfjklqsnfjk")
-                showWork(resultWork);
-                addWorkModal(resultWork);
-            })
+        .then(function (response) {
+            if (response.ok) {
+                return response.json();
+            }
+        })
+        .then(function (resultWork) {
+            showWork(resultWork);
+            addWorkModal(resultWork);
+        })
 }

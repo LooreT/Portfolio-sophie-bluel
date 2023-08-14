@@ -1,3 +1,4 @@
+// attends que le bloc de code soi chargé 
 window.onload = function () {
   let formLogIn = document.getElementById("formLogIn");
   formLogIn.addEventListener("submit", (event) => {
@@ -27,6 +28,8 @@ window.onload = function () {
       .then(function (resultatPost) {
         console.log(resultatPost)
 
+
+        // != differend de 
         if (resultatPost.userId != null) {
           localStorage.setItem("user", resultatPost.token);
           console.info(localStorage.getItem("user"))
